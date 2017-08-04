@@ -26,21 +26,30 @@ var stringifyJSON = function(obj) {
   	  } 
   	}
   	return '[' + result + ']';
-  } else {
-  	var result2 = '';
-  	var counter = 0;
-  	for ( var key in obj) {
-  		if (obj.hasOwnProperty(key)) {
-  		if ( counter === 0 ) {
-  		    result2 += stringifyJSON(key) + ':' + stringifyJSON(obj[key]);
-  		}else{
-  			result2 += ',' + stringifyJSON(key) + ':' + stringifyJSON(obj[key]);
-  		}
-  		counter ++;
-  		}	
-  	}
-  	return '{' + result2 + '}';
   }
+ else{
+  	var result = [];
+  	for(var key in obj){
+  		if(obj[key] === undefined || typeof(obj[key]) === 'function'){
+  			continue;
+  		}
+  		result.push(stringifyJSON(key) + ":" + stringifyJSON(obj[key]))
+  	}
+  	return "{" + result.join(',') + "}"
+  }
+  	// var result2 = '';
+  	// var counter = 0;
+  	// for ( var key in obj) {
+  	// 	if (obj.hasOwnProperty(key)) {
+  	// 	if ( counter === 0 ) {
+  	// 	    result2 += stringifyJSON(key) + ':' + stringifyJSON(obj[key]);
+  	// 	}else{
+  	// 		result2 += ',' + stringifyJSON(key) + ':' + stringifyJSON(obj[key]);
+  	// 	}
+  	// 	counter ++;
+  	// 	}	
+  	// }
+  	// return '{' + result2 + '}';
 
 
   
